@@ -1,0 +1,128 @@
+<form class="form-horizontal">
+    <div class="container">
+        <div class="form-group">
+            <?php for ($i = 1; $i < $this->index; $i++): ?>
+                <p id="sample-outputs-<?= $i ?>">
+            <span id="<?= $this->outputRequired[\Application\Constant\Key::KEY] ?>-<?= $i ?>">
+                <script>
+                    $(document).ready(function () {
+                        getSampleOutputs('<?=$this->outputRequired[\Application\Constant\Key::KEY]?>', <?=$this->outputRequired[\Application\Constant\Key::VALUE][$i-1]?>, <?=$this->outputRequired[\Application\Constant\Key::UNIT][$i-1]?>,
+                            '<?=$this->regionSize[\Application\Constant\Key::KEY]?>', <?=$this->regionSize[\Application\Constant\Key::VALUE][$i-1]?>, <?=$this->regionSize[\Application\Constant\Key::UNIT][$i-1]?>,
+                            '<?=$this->coverage[\Application\Constant\Key::KEY]?>', <?=$this->coverage[\Application\Constant\Key::VALUE][$i-1]?>, <?=$this->coverage[\Application\Constant\Key::UNIT][$i-1]?>,
+                            '<?=$this->numberOfSamples[\Application\Constant\Key::KEY]?>', <?=$this->numberOfSamples[\Application\Constant\Key::VALUE][$i-1]?>,<?=$this->numberOfSamples[\Application\Constant\Key::UNIT][$i-1]?>,
+                            <?=$i?>, '-'
+                        );
+                    });
+                </script>
+            </span>
+                    &nbsp;=&nbsp;
+            <span id="<?= $this->regionSize[\Application\Constant\Key::KEY] ?>-<?= $i ?>">
+                <script>
+                    $(document).ready(function () {
+                        getSampleOutput('<?=$this->regionSize[\Application\Constant\Key::KEY]?>', <?=$this->regionSize[\Application\Constant\Key::VALUE][$i-1]?>,<?=$this->regionSize[\Application\Constant\Key::UNIT][$i-1]?>, <?=$i?>, 1, '-');
+                    });
+                </script>
+            </span>
+                    &nbsp;*&nbsp;
+            <span id="<?= $this->coverage[\Application\Constant\Key::KEY] ?>-<?= $i ?>">
+                <script>
+                    $(document).ready(function () {
+                        getSampleOutput('<?=$this->coverage[\Application\Constant\Key::KEY]?>', <?=$this->coverage[\Application\Constant\Key::VALUE][$i-1]?>,<?=$this->coverage[\Application\Constant\Key::UNIT][$i-1]?>, <?=$i?>, 1, '-');
+                    });
+                </script>
+            </span>
+                    &nbsp;*&nbsp;
+            <span id="<?= $this->numberOfSamples[\Application\Constant\Key::KEY] ?>-<?= $i ?>">
+                <script>
+                    $(document).ready(function () {
+                        getSampleOutput('<?=$this->numberOfSamples[\Application\Constant\Key::KEY]?>', <?=$this->numberOfSamples[\Application\Constant\Key::VALUE][$i-1]?>,<?=$this->numberOfSamples[\Application\Constant\Key::UNIT][$i-1]?>, <?=$i?>, 1, '-');
+                    });
+                </script>
+            </span>
+                </p>
+            <?php endfor; ?>
+            <p>
+        <span id="<?= $this->totalOutput[\Application\Constant\Key::KEY]?>-<?=$this->index?>">
+            <script>
+                $(document).ready(function () {
+                    getSampleOutput('<?=$this->totalOutput[\Application\Constant\Key::KEY]?>', <?=$this->totalOutput[\Application\Constant\Key::VALUE]?>,<?=$this->totalOutput[\Application\Constant\Key::UNIT]?>, <?=$this->index?>, 0, '-');
+                });
+            </script>
+        </span>
+                &nbsp;=&nbsp;
+        <span id="<?= $this->outputPerFlowCell[\Application\Constant\Key::KEY] ?>">
+            <script>
+                $(document).ready(function () {
+                    getSampleOutput('<?=$this->outputPerFlowCell[\Application\Constant\Key::KEY]?>', <?=$this->outputPerFlowCell[\Application\Constant\Key::VALUE]?>,<?=$this->outputPerFlowCell[\Application\Constant\Key::UNIT]?>, 0, 1, '');
+                });
+            </script>
+        </span>
+                <?php switch ($this->index):
+                    case 0: ?>
+                    <?php case 1: ?>
+                        <?php break; ?>
+                    <?php case 2: ?>
+                        &nbsp;-&nbsp;
+                        <span id="<?= $this->outputRequired[\Application\Constant\Key::KEY] ?><?= $this->index - 1 ?>">
+                    <script>
+                        $(document).ready(function () {
+                            getSampleOutput('<?=$this->outputRequired[\Application\Constant\Key::KEY]?>', <?=$this->outputRequired[\Application\Constant\Key::VALUE][$this->index-2]?>,<?=$this->outputRequired[\Application\Constant\Key::UNIT][$this->index-2]?>, <?=$this->index-1?>, 0, '');
+                        });
+                    </script>
+                </span>
+                        <?php break; ?>
+                    <?php default: ?>
+                        &nbsp;-&nbsp;
+                        &nbsp;(&nbsp;
+                        <?php for ($i = 1; $i < $this->index; $i++): ?>
+                            <span id="<?= $this->outputRequired[\Application\Constant\Key::KEY] ?><?= $i ?>">
+                        <script>
+                            $(document).ready(function () {
+                                getSampleOutput('<?=$this->outputRequired[\Application\Constant\Key::KEY]?>', <?=$this->outputRequired[\Application\Constant\Key::VALUE][$i-1]?>,<?=$this->outputRequired[\Application\Constant\Key::UNIT][$i-1]?>, <?=$i?>, 0, '');
+                            });
+                        </script>
+                    </span>
+                            <?php if ($i < $this->index - 1) : ?>&nbsp;+&nbsp;<?php endif; ?>
+                        <?php endfor; ?>
+                        &nbsp;)&nbsp;
+                        <?php break; ?>
+                    <?php endswitch; ?>
+            </p>
+            <p>
+        <span id="<?= $this->numberOfSamples[\Application\Constant\Key::KEY] ?>-<?= $this->index ?>">
+            <script>
+                $(document).ready(function () {
+                    getSampleOutput('<?=$this->numberOfSamples[\Application\Constant\Key::KEY]?>', <?=$this->numberOfSamples[\Application\Constant\Key::VALUE][$this->index-1]?>,<?=$this->numberOfSamples[\Application\Constant\Key::UNIT][$this->index-1]?>, <?=$this->index?>, 0, '-');
+                });
+            </script>
+        </span>
+                &nbsp;=&nbsp;
+        <span id="<?= $this->totalOutput[\Application\Constant\Key::KEY] ?>_<?=$this->index?>">
+            <script>
+                $(document).ready(function () {
+                    getSampleOutput('<?=$this->totalOutput[\Application\Constant\Key::KEY]?>', <?=$this->totalOutput[\Application\Constant\Key::VALUE]?>,<?=$this->totalOutput[\Application\Constant\Key::UNIT]?>, <?=$this->index?>, 0, '_');
+                });
+            </script>
+        </span>
+                &nbsp;/&nbsp;
+                &nbsp;(&nbsp;
+        <span id="<?= $this->regionSize[\Application\Constant\Key::KEY] ?>-<?= $this->index ?>">
+            <script>
+                $(document).ready(function () {
+                    getSampleOutput('<?=$this->regionSize[\Application\Constant\Key::KEY]?>', <?=$this->regionSize[\Application\Constant\Key::VALUE][$this->index-1]?>,<?=$this->regionSize[\Application\Constant\Key::UNIT][$this->index-1]?>, <?=$this->index?>, 1, '-');
+                });
+            </script>
+        </span>
+                &nbsp;*&nbsp;
+        <span id="<?= $this->coverage[\Application\Constant\Key::KEY] ?>-<?= $this->index ?>">
+            <script>
+                $(document).ready(function () {
+                    getSampleOutput('<?=$this->coverage[\Application\Constant\Key::KEY]?>', <?=$this->coverage[\Application\Constant\Key::VALUE][$this->index-1]?>,<?=$this->coverage[\Application\Constant\Key::UNIT][$this->index-1]?>, <?=$this->index?>, 1, '-');
+                });
+            </script>
+        </span>
+                &nbsp;)&nbsp;
+            </p>
+        </div>
+    </div>
+</form>

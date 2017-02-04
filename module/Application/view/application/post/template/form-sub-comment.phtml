@@ -1,0 +1,25 @@
+<form method="post" name="commentForm" id="commentForm">
+    <input type="hidden" name="id" id="id" value="">
+    <input type="hidden" name="post_id" id="post_id" value="1101">
+    <input type="hidden" name="user_id" id="user_id" value="0">
+    <input type="hidden" name="comment_id" id="comment_id" value="0">
+
+    <div class="form-group">
+        <label for="name" class="">Name <span class="require">*</span> </label>
+        <input type="text" name="name" id="name" class="form-control" placeholder="" value="">
+        <span class="alert-danger" id="alert-danger-name"></span>
+    </div>
+    <div class="form-group">
+        <label for="email" class="">
+            Email <span class="require">*</span> </label>
+        <input type="email" name="email" id="email" class="form-control" placeholder="" value=""> <span
+            class="alert-danger" id="alert-danger-email"></span>
+    </div>
+    <div class="form-group">
+        <label for="message" class="">
+            Message <span class="require">*</span> </label>
+        <textarea name="message" id="message" class="form-control" placeholder="Message" rows="8"></textarea> <span
+            class="alert-danger" id="alert-danger-message"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Post a comment</button>
+</form>

@@ -1,0 +1,65 @@
+<?php if(isset($this->posts['items'])) : ?>
+    <?php foreach($this->posts['items'] as $post): ?>
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <img class="img-responsive" alt="" src="<?=$this->basePath()?><?=$post['thumbnail']?>">
+            </div>
+            <div class="col-md-8 col-sm-8">
+                <h2><a href="<?=$this->basePath()?>/post/detail/<?=$post['id']?>"><?=$post['title']?></a></h2>
+                <ul class="post-info">
+                    <li><i class="fa fa-calendar"></i> <?=date_format(date_create($post['create_date']), 'd/m/Y')?></li>
+                    <li><i class="fa fa-comments"></i> 17</li>
+                    <li><i class="fa fa-tags"></i> <?=$post['tags']?></li>
+                </ul>
+                <?=$post['summary']?>
+                <a href="<?=$this->basePath()?>/post/detail/<?=$post['id']?>" class="more">Read more <i class="icon-angle-right"></i></a>
+            </div>
+        </div>
+        <hr class="post-post-sep">
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<?php if (count($this->posts['pagesInRange']) > 1): ?>
+    <ul class="pagination">
+        <!-- Previous page link -->
+        <?php if (isset($this->posts['previous'])): ?>
+            <li>
+                <a onclick="getPosts(<?= $this->posts['previous']; ?>)">
+                    Prev
+                </a>
+            </li>
+        <?php else: ?>
+            <li class="disabled">
+                <a>Prev</a>
+            </li>
+        <?php endif; ?>
+
+        <!-- Numbered page links -->
+        <?php foreach ($this->posts['pagesInRange'] as $page): ?>
+            <?php if ($page != $this->posts['current']): ?>
+                <li>
+                    <a onclick="getPosts(<?= $page; ?>)">
+                        <?= $page; ?>
+                    </a>
+                </li>
+            <?php else: ?>
+                <li class="active">
+                    <a><?= $page; ?></a>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+
+        <!-- Next page link -->
+        <?php if (isset($this->posts['next'])): ?>
+            <li>
+                <a onclick="getPosts(<?= $this->posts['next']; ?>)">
+                    Next
+                </a>
+            </li>
+        <?php else: ?>
+            <li class="disabled">
+                <a>Next</a>
+            </li>
+        <?php endif; ?>
+    </ul>
+<?php endif; ?>

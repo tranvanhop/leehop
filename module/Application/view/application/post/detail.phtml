@@ -1,0 +1,141 @@
+<ul class="breadcrumb">
+    <li><a href="\"><?=$this->translate('Home')?></a></li>
+    <li><a href="<?=$this->basePath()?>/post"><?=$this->translate('Post')?></a></li>
+    <li class="active"><?=$this->translate('Post Detail')?></li>
+</ul>
+<!-- BEGIN SIDEBAR & CONTENT -->
+<div class="row margin-bottom-40">
+    <!-- BEGIN CONTENT -->
+    <div class="col-md-12 col-sm-12">
+        <h1><?= $this->post['title'] ?></h1>
+
+        <div class="content-page">
+            <div class="row">
+                <!-- BEGIN LEFT SIDEBAR -->
+                <div class="col-md-9 col-sm-9 post-item">
+                    <div class="post-item-img">
+                        <!-- BEGIN CAROUSEL -->
+                        <div class="front-carousel">
+                            <div id="myCarousel" class="carousel slide">
+                                <!-- Carousel items -->
+                                <div class="carousel-inner">
+                                    <div class="item">
+                                        <img src="/theme/assets/frontend/pages/img/posts/img1.jpg" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <!-- BEGIN VIDEO -->
+                                        <iframe src="http://player.vimeo.com/video/56974716?portrait=0"
+                                                style="width:100%; border:0" allowfullscreen=""
+                                                height="259"></iframe>
+                                        <!-- END VIDEO -->
+                                    </div>
+                                    <div class="item active">
+                                        <img src="/theme/assets/frontend/pages/img/posts/img3.jpg" alt="">
+                                    </div>
+                                </div>
+                                <!-- Carousel nav -->
+                                <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                                <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- END CAROUSEL -->
+                    </div>
+                    <?= $this->post['description'] ?>
+                    <ul class="post-info">
+                        <li><i class="fa fa-user"></i> By <?=$this->post['first_name']?> <?=$this->post['last_name']?></li>
+                        <li><i class="fa fa-calendar"></i> <?= date_format(date_create($this->post['create_date']), 'd/m/Y') ?></li>
+                        <li><i class="fa fa-comments"></i> <?=$this->post['comment_num']?></li>
+                        <?php
+                        $tags = "";
+                        foreach(explode(',', $this->post['tags']) as $t)
+                            $tags .= '<a href="'.$this->basePath().'/post/index?tags='.trim($t).'">' . $t . '</a>';
+                        ?>
+                        <li><i class="fa fa-tags"></i> <?=$tags?></li>
+                    </ul>
+
+                    <h2><?= $this->translate('Comments') ?></h2>
+                    <div class="comments" id="comments">
+                        <script>
+                            $(document).ready(function () {
+                                getComments(<?=$this->post['id']?>);
+                            });
+                        </script>
+                    </div>
+
+                    <div class="post-comment padding-top-40">
+                        <h3><?= $this->translate('Leave a Comment') ?></h3>
+
+                        <?php $form = $this->commentForm; ?>
+                        <?php $form->prepare(); ?>
+                        <?= $this->form()->openTag($form) ?>
+                        <?php foreach($form->getElements() as $element): ?>
+                            <?php switch($element->getAttribute('type')):
+                                case 'hidden':?>
+                                    <?=$this->formElement($element)?>
+                                    <?php break; ?>
+                                <?php case 'submit':?>
+                                    <button type="<?=$element->getAttribute('type')?>" class="<?=$element->getAttribute('class')?>"><?=$this->translate($element->getOptions()['label'])?></button>
+                                    <?php break; ?>
+                                <?php default:?>
+                                    <div class="form-group" <?php if(strlen($element->getValue()) > 0): ?>style="display: none;"<?php endif ?>>
+                                        <label for="<?=$element->getName()?>" class="<?=$element->getOptions()['label_attributes']['class']?>">
+                                            <?=$this->translate($element->getOptions()['label'])?>
+                                            <?php if($form->getInputFilter()->get($element->getName())->isRequired()) :?><span class="require">*</span><?php endif; ?>
+                                        </label>
+                                        <?=$this->formElement($element)?>
+                                        <span class="alert-danger" id="alert-danger-<?=$element->getName()?>"><?= $this->formElementErrors($element); ?></span>
+                                    </div>
+                                    <?php break; ?>
+                                <?php endswitch; ?>
+                        <?php endforeach; ?>
+                        <?= $this->form()->closeTag() ?>
+                    </div>
+                </div>
+                <!-- END LEFT SIDEBAR -->
+
+                <!-- BEGIN RIGHT SIDEBAR -->
+                <div class="col-md-3 col-sm-3 post-sidebar">
+                    <!-- CATEGORIES START -->
+                    <h2 class="no-top-space">Categories</h2>
+                    <ul class="nav sidebar-categories margin-bottom-40" id="categories">
+                        <script>
+                            $(document).ready(function () {
+                                getCategories();
+                            });
+                        </script>
+                    </ul>
+                    <!-- CATEGORIES END -->
+
+                    <!-- BEGIN RECENT NEWS -->
+                    <h2><?=$this->translate('Recent')?></h2>
+
+                    <div class="recent-news margin-bottom-10" id="recent">
+                        <script>
+                            $(document).ready(function () {
+                                getRecent();
+                            });
+                        </script>
+                    </div>
+                    <!-- END RECENT NEWS -->
+
+                    <!-- BEGIN post TAGS -->
+                    <div class="post-tags margin-bottom-20" id="tags">
+                        <script>
+                            $(document).ready(function () {
+                                getTags();
+                            });
+                        </script>
+                    </div>
+                    <!-- END post TAGS -->
+                </div>
+                <!-- END RIGHT SIDEBAR -->
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT -->
+</div>
+<!-- END SIDEBAR & CONTENT -->

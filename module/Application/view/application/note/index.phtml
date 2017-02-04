@@ -1,0 +1,53 @@
+<ul class="breadcrumb">
+    <li><a href="\"><?=$this->translate('Home')?></a></li>
+    <li><a href="<?=$this->basePath()?>/post"><?=$this->translate('post')?></a></li>
+    <li class="active"><?=$this->translate('Post Page')?></li>
+</ul>
+<!-- BEGIN SIDEBAR & CONTENT -->
+<div class="row margin-bottom-40">
+    <!-- BEGIN CONTENT -->
+    <div class="col-md-12 col-sm-12">
+        <h1><?=$this->translate('Post Page')?></h1>
+
+        <div class="content-page">
+            <div class="row">
+                <!-- BEGIN LEFT SIDEBAR -->
+                <div class="col-md-9 col-sm-9 post-posts" id="posts">
+                    <script>
+                        $(document).ready(function () {
+                            getPosts(<?=$_GET['page']?>);
+                        });
+                    </script>
+                </div>
+                <!-- END LEFT SIDEBAR -->
+
+                <!-- BEGIN RIGHT SIDEBAR -->
+                <div class="col-md-3 col-sm-3 post-sidebar">
+                    <!-- CATEGORIES START -->
+                    <h2 class="no-top-space"><?=$this->translate('Categories')?></h2>
+                    <ul class="nav sidebar-categories margin-bottom-40">
+                        <?php foreach($this->categories as $category) :?>
+                            <li><a href="/post?category_id=<?=$category['id']?>"><?=$this->translate($category['name'])?> (<?=$category['count']?>)</a></li>
+                        <?php endforeach;?>
+                    </ul>
+                    <!-- CATEGORIES END -->
+
+                    <!-- BEGIN RECENT NEWS -->
+                    <h2><?=$this->translate('Recent')?></h2>
+
+                    <div class="recent-news margin-bottom-10" id="recent">
+                        <script>
+                            $(document).ready(function () {
+                                getRecent();
+                            });
+                        </script>
+                    </div>
+                    <!-- END RECENT NEWS -->
+                </div>
+                <!-- END RIGHT SIDEBAR -->
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT -->
+</div>
+<!-- END SIDEBAR & CONTENT -->

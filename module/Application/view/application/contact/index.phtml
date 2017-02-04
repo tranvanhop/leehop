@@ -1,0 +1,65 @@
+<ul class="breadcrumb">
+    <li><a href="<?= $this->basePath() ?>"><?= $this->translate('Home') ?></a></li>
+    <li class="active"><?= $this->translate('Contacts') ?></li>
+</ul>
+<div class="row margin-bottom-40">
+    <!-- BEGIN CONTENT -->
+    <div class="col-md-12">
+        <h1>Contacts</h1>
+
+        <div class="content-page">
+            <div class="row">
+                <div class="col-md-9 col-sm-9">
+                    <!-- BEGIN FORM-->
+                    <?php $form = $this->contactForm; ?>
+                    <?php $form->prepare(); ?>
+                    <?= $this->form()->openTag($form) ?>
+                    <?php foreach($form->getElements() as $element): ?>
+                        <?php switch($element->getAttribute('type')):
+                            case 'hidden':?>
+                                <?=$this->formElement($element)?>
+                                <?php break; ?>
+                            <?php case 'submit':?>
+                                <button type="<?=$element->getAttribute('type')?>" class="<?=$element->getAttribute('class')?>"><?=$this->translate($element->getOptions()['label'])?></button>
+                                <button type="button" class="btn btn-default"><?=$this->translate('Cancel')?></button>
+                                <?php break; ?>
+                            <?php default:?>
+                                <div class="form-group">
+                                    <label for="<?=$element->getName()?>" class="<?=$element->getOptions()['label_attributes']['class']?>">
+                                        <?=$this->translate($element->getOptions()['label'])?>
+                                        <?php if($form->getInputFilter()->get($element->getName())->isRequired()) :?><span class="require">*</span><?php endif; ?>
+                                    </label>
+                                    <?=$this->formElement($element)?>
+                                    <span class="alert-danger" id="alert-danger-<?=$element->getName()?>"><?= $this->formElementErrors($element); ?></span>
+                                </div>
+                                <?php break; ?>
+                            <?php endswitch; ?>
+                    <?php endforeach; ?>
+                    <?= $this->form()->closeTag() ?>
+                    <!-- END FORM-->
+                </div>
+
+                <div class="col-md-3 col-sm-3 sidebar2">
+                    <h2><?=$this->translate('Our Contacts')?></h2>
+                    <address>
+                        68 Huynh Thien Loc, P.Hoa Thanh<br>
+                        Q.Tan Phu, TP.HCM<br>
+                        <abbr title="Phone">Phone :</abbr> <?=$this->define['mobile']?>
+                    </address>
+                    <address>
+                        <strong>Email</strong><br>
+                        <a href="mailto:<?=$this->define['email']?>"><?=$this->define['email']?></a><br>
+                    </address>
+                    <ul class="social-icons margin-bottom-40">
+                        <li><a target="_blank" href="<?=$this->define['facebook']?>" data-original-title="facebook" class="facebook"></a></li>
+                        <li><a target="_blank" href="<?=$this->define['github']?>" data-original-title="github" class="github"></a></li>
+                        <li><a href="javascript:;" data-original-title="Goole Plus" class="googleplus"></a></li>
+                        <li><a href="javascript:;" data-original-title="linkedin" class="linkedin"></a></li>
+                        <li><a href="javascript:;" data-original-title="rss" class="rss"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT -->
+</div>

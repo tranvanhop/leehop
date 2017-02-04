@@ -1,0 +1,11 @@
+<span <?php if($this->required): ?>class="require"<?php endif;?>>
+    <?php if($this->value != 0):?>
+        <?=str_replace('.00', '', number_format(floatval($this->value)*floatval($this->unit), 2))?>
+    <?php else: ?>
+        <?php if($this->index > 0): ?>
+            <?=$this->key?>_<?=$this->index?>
+        <?php else: ?>
+            <?=$this->key?>
+        <?php endif; ?>
+    <?php endif; ?>
+</span>

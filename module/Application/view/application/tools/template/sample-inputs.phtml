@@ -1,0 +1,15 @@
+<form class="form-horizontal" name="sample-inputs" onsubmit="false">
+    <div class="form-group">
+        <div class="col-md-3 col-sm-3">
+            <input type="number" step="any" name="<?=$this->regionSize['key']?>[]" class="form-control" value="<?=$this->regionSize['value']?>" placeholder="Region size">
+        </div>
+
+        <div class="col-md-3 col-sm-3">
+            <input type="number" step="any" name="<?=$this->coverage['key']?>[]" class="form-control" value="<?=$this->coverage['value']?>" placeholder="Coverage">
+        </div>
+
+        <div class="col-md-3 col-sm-3">
+            <input type="number" step="any" name="<?=$this->numberOfSamples['key']?>[]" class="form-control" value="<?=$this->numberOfSamples['value']?>" placeholder="Number of samples">
+        </div>
+    </div>
+</form>

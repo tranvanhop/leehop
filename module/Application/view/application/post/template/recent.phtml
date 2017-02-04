@@ -1,0 +1,12 @@
+<?php foreach($this->recent as $r): ?>
+    <div class="row margin-bottom-10">
+        <div class="col-md-3">
+            <img class="img-responsive" alt="" src="<?=$r['thumbnail']?>">
+        </div>
+        <div class="col-md-9 recent-news-inner">
+            <h3><a href="<?=$this->basePath()?>/post/detail/<?=$r['id']?>"><?=$r['title']?></a></h3>
+
+            <?=$this->_utility->limitWords($r['summary'])?>
+        </div>
+    </div>
+<?php endforeach; ?>

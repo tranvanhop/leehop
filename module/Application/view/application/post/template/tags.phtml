@@ -1,0 +1,6 @@
+<h2>Tags</h2>
+<ul>
+    <?php foreach($this->tags as $t): ?>
+        <li><a href="<?=$this->basePath()?>/post/index?tags=<?=$t['name']?>"><i class="fa fa-tags"></i><?=$t['name']?></a></li>
+    <?php endforeach; ?>
+</ul>

@@ -1,0 +1,5 @@
+<?php foreach($this->categories as $category) :?>
+    <li class="<?php if($category['id'] == $this->category_id): ?>active<?php endif; ?>">
+        <a href="/post?category_id=<?=$category['id']?>"><?=$this->translate($category['name'])?> (<?=$category['count']?>)</a>
+    </li>
+<?php endforeach;?>

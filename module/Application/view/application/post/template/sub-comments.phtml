@@ -1,0 +1,49 @@
+<?php if(isset($this->comments)): ?>
+<?php foreach($this->comments as $comment): ?>
+    <div class="media">
+        <a href="javascript:;" class="pull-left">
+            <img src="<?=$this->base_url?>/<?php if(strlen($comment['avatar']) > 0): ?><?=$comment['avatar']?><?php else: ?>theme/assets/frontend/pages/img/people/img1-small.jpg<?php endif;?>" alt=""
+                 class="media-object">
+        </a>
+
+        <div class="media-body">
+            <h4 class="media-heading"><strong><?=$comment['name']?></strong>
+                <span>
+                    <?php
+                    $day = date_format(date_create($comment['create_date']), "d");
+                    $month = date_format(date_create($comment['create_date']), "m");
+                    $year = date_format(date_create($comment['create_date']), "Y");
+                    $h = date_format(date_create($comment['create_date']), "h:i");
+                    $current_date = date('Y-m-d H:i:s');
+                    $diff = date_diff(date_create($comment['create_date']), date_create($current_date));
+
+                    $diff_year = $diff->format("%y");
+                    $diff_month = $diff->format("%m");
+                    $diff_day = $diff->format("%d");
+                    $diff_h = $diff->format("%h");
+                    $diff_i = $diff->format("%i");
+                    $diff_s = $diff->format("%s");
+
+                    $time = '';
+                    if ($diff_s > 0)
+                        $time = $diff_s . ' ' . $this->translate('sec') . ' ' . $this->translate('ago');
+                    if ($diff_i > 0)
+                        $time = $diff_i . ' ' . $this->translate('min') . ' ' . $this->translate('ago');
+                    if ($diff_h > 0)
+                        $time = $diff_h . ' ' . $this->translate('hours') . ' ' . $this->translate('ago');
+                    if ($diff_day > 0)
+                        $time = $diff_day . ' ' . $this->translate('day') . ' ' . $this->translate('ago');
+                    if ($diff_month > 0)
+                        $time = $diff_month . ' ' . $this->translate('month') . ' ' . $this->translate('ago');
+                    if ($diff_year > 0)
+                        $time = $diff_year . ' ' . $this->translate('year') . ' ' . $this->translate('ago');
+                    ?>
+                    <?=$time?>
+                </span>
+            </h4>
+
+            <p><?=$comment['message']?></p>
+        </div>
+    </div>
+<?php endforeach; ?>
+<?php endif; ?>

@@ -1,0 +1,31 @@
+<span id="<?= $this->outputRequired[\Application\Constant\Key::KEY] ?>-<?= $this->index ?>">
+    <script>
+        $(document).ready(function () {
+            getSampleOutput('<?=$this->outputRequired[\Application\Constant\Key::KEY]?>', <?=$this->outputRequired[\Application\Constant\Key::VALUE]?>, <?=$this->outputRequired[\Application\Constant\Key::UNIT]?>, <?=$this->index?>, 0, '-');
+        });
+    </script>
+</span>
+&nbsp;=&nbsp;
+<span id="<?= $this->regionSize[\Application\Constant\Key::KEY] ?>-<?= $this->index ?>">
+    <script>
+        $(document).ready(function () {
+            getSampleOutput('<?=$this->regionSize[\Application\Constant\Key::KEY]?>', <?=$this->regionSize[\Application\Constant\Key::VALUE]?>, <?=$this->regionSize[\Application\Constant\Key::UNIT]?>, <?=$this->index?>, 1, '-');
+        });
+    </script>
+</span>
+&nbsp;*&nbsp;
+<span id="<?= $this->coverage[\Application\Constant\Key::KEY] ?>-<?= $this->index ?>">
+    <script>
+        $(document).ready(function () {
+            getSampleOutput('<?=$this->coverage[\Application\Constant\Key::KEY]?>', <?=$this->coverage[\Application\Constant\Key::VALUE]?>, <?=$this->coverage[\Application\Constant\Key::UNIT]?>, <?=$this->index?>, 1, '-');
+        });
+    </script>
+</span>
+&nbsp;*&nbsp;
+<span id="<?= $this->numberOfSamples[\Application\Constant\Key::KEY] ?>-<?= $this->index ?>">
+    <script>
+        $(document).ready(function () {
+            getSampleOutput('<?=$this->numberOfSamples[\Application\Constant\Key::KEY]?>', <?=$this->numberOfSamples[\Application\Constant\Key::VALUE]?>, <?=$this->numberOfSamples[\Application\Constant\Key::UNIT]?>, <?=$this->index?>, 1, '-');
+        });
+    </script>
+</span>

@@ -1,0 +1,105 @@
+<ul class="breadcrumb">
+    <li><a href="\"><?= $this->translate('Home') ?></a></li>
+    <li><a href="<?= $this->basePath() ?>/post"><?= $this->translate('Post') ?></a></li>
+    <li class="active"><?= $this->translate('Search Results') ?></li>
+</ul>
+<!-- BEGIN SIDEBAR & CONTENT -->
+<div class="row margin-bottom-40">
+    <!-- BEGIN CONTENT -->
+    <div class="col-md-12">
+        <h1><?= $this->translate('Search Results') ?></h1>
+
+        <div class="content-page">
+
+            <form action="<?=$this->basePath()?>/post/search" method="get" class="content-search-view2">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="q" placeholder="Search..." value="<?=$this->q?>">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </span>
+                </div>
+            </form>
+
+            <?php if(isset($this->posts['items'])) : ?>
+                <?php foreach($this->posts['items'] as $post): ?>
+                    <div class="search-result-item">
+                        <h4>
+                            <a href="<?=$this->basePath()?>/post/detail/<?=$post['id']?>">
+                                <?=$post['title']?>
+                            </a>
+                        </h4>
+                        <?=$post['summary']?>
+                    </div>
+                <?php endforeach; ?>
+
+            <?php else: ?>
+                <div class="col-md-12 col-sm-12">
+                    <div class="content-page page-404">
+                        <div class="number">
+                            404
+                        </div>
+                        <div class="details">
+                            <h3>Find not found</h3>
+
+                            <p>
+                                We can not find the page you're looking for.<br>
+                                <a href="/" class="link">Return home</a> or try the search bar below.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <?php if (count($this->posts['pagesInRange']) > 1): ?>
+                        <ul class="pagination pull-right">
+                            <!-- Previous page link -->
+                            <?php if (isset($this->posts['previous'])): ?>
+                                <li>
+                                    <a href="<?=$this->basePath()?>/post/search?q=<?=$this->q?>&page=<?=$this->posts['previous']?>">
+                                        Prev
+                                    </a>
+                                </li>
+                            <?php else: ?>
+                                <li class="disabled">
+                                    <a>Prev</a>
+                                </li>
+                            <?php endif; ?>
+
+                            <!-- Numbered page links -->
+                            <?php foreach ($this->posts['pagesInRange'] as $page): ?>
+                                <?php if ($page != $this->posts['current']): ?>
+                                    <li>
+                                        <a href="<?=$this->basePath()?>/post/search?q=<?=$this->q?>&page=<?=$page?>">
+                                            <?= $page; ?>
+                                        </a>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="active">
+                                        <a><?= $page; ?></a>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+
+                            <!-- Next page link -->
+                            <?php if (isset($this->posts['next'])): ?>
+                                <li>
+                                    <a href="<?=$this->basePath()?>/post/search?q=<?=$this->q?>&page=<?=$this->posts['next']?>">
+                                        Next
+                                    </a>
+                                </li>
+                            <?php else: ?>
+                                <li class="disabled">
+                                    <a>Next</a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- END CONTENT -->
+</div>

@@ -1,0 +1,112 @@
+<form class="form-horizontal" name="sample-inputs" method="post">
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group">
+                <div class="col-md-12 col-sm-12">
+                    <label class="control-label">OutputPerFlowCell</label>
+                </div>
+                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-8">
+                    <input type="number" step="any" name="<?= $this->outputPerFlowCell['key'] ?>" class="form-control"
+                           <?php if ($this->outputPerFlowCell['value'] != 0): ?>value="<?= $this->outputPerFlowCell['value'] ?>"<?php endif; ?>
+                           placeholder="Output per flow cell">
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-5 col-xs-4">
+                    <select class="form-control" name="<?=$this->outputPerFlowCell['key']?>_unit">
+                        <?php foreach($this->units as $unit) :?>
+                            <option value="<?=$unit['value']?>" <?php if($unit['value']==$this->outputPerFlowCell['unit']): ?>selected<?php endif; ?>><?=$unit['text']?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php for ($i = 0; $i < $this->index; $i++): ?>
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="control-label">Region size <?= $i + 1 ?></label>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-6 col-xs-8">
+                        <input type="number" step="any" name="<?= $this->regionSize['key'] ?>[]" class="form-control"
+                               <?php if ($this->regionSize['value'][$i] != 0): ?>value="<?= $this->regionSize['value'][$i] ?>"<?php endif; ?>
+                               placeholder="Region size">
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-5 col-xs-4">
+                        <select class="form-control" name="<?=$this->regionSize['key']?>_unit[]">
+                            <?php foreach($this->units as $unit) :?>
+                                <option value="<?=$unit['value']?>" <?php if($unit['value']==$this->regionSize['unit'][$i]): ?>selected<?php endif; ?>><?=$unit['text']?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="control-label">Coverage <?= $i + 1 ?></label>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-6 col-xs-8">
+                        <input type="number" step="any" name="<?= $this->coverage['key'] ?>[]" class="form-control"
+                               <?php if ($this->coverage['value'][$i] != 0): ?>value="<?= $this->coverage['value'][$i] ?>"<?php endif; ?>
+                               placeholder="Coverage">
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-5 col-xs-4">
+
+                    </div>
+                </div>
+            </div>
+            <?php if ($i < $this->index - 1): ?>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <div class="col-md-12 col-sm-12">
+                            <label class="control-label">Number of samples <?= $i + 1 ?></label>
+                        </div>
+                        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-8">
+                            <input type="number" step="any" name="<?= $this->numberOfSamples['key'] ?>[]"
+                                   class="form-control"
+                                   <?php if ($this->numberOfSamples['value'][$i] != 0): ?>value="<?= floatval(number_format($this->numberOfSamples['value'][$i], 2)) ?>"<?php endif; ?>
+                                   placeholder="Number of samples">
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-4">
+
+                        </div>
+                    </div>
+                </div>
+            <?php else : ?>
+                <div class="col-md-4 col-sm-4"></div>
+            <?php endif; ?>
+        </div>
+    <?php endfor ?>
+    <br>
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group">
+                <div class="col-md-8 col-sm-11 col-xs-12">
+                    <button class="btn btn-primary btn-block" onclick="addInputs()" <?php if($this->numberOfSamples['value'][$this->index-1] < 0):?>disabled<?php endif;?>>
+                        <?= $this->translate('Add Sample') ?>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group">
+                <div class="col-md-8 col-sm-11 col-xs-12">
+                    <button class="btn btn-primary btn-block" onclick="removeInputs()">
+                        <?= $this->translate('Remove Sample') ?>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group">
+                <div class="col-md-8 col-sm-11 col-xs-12">
+                    <button class="btn btn-primary btn-block">
+                        <?= $this->translate('Submit') ?>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
