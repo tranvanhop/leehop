@@ -87,8 +87,7 @@ class RegistrationForm extends Form
             'type' => 'file',
             'attributes' => array(
                 'id' => 'file',
-                'class' => 'form-control',
-                'onkeyup' => 'isExistsPhone()'
+                'class' => 'form-control'
             ),
             'options' => array(
                 'label' => 'Avatar',

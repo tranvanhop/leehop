@@ -22,6 +22,8 @@ class Define
     const URL_REDIRECT_LOGIN_FAIL = '/account/log-in';
     const URL_REDIRECT_REGISTRATION_SUCCESS = '/account/log-in';
     const URL_REDIRECT_REGISTRATION_FAIL = '/account/registration';
+    const URL_REDIRECT_UPDATE_PROFILE_SUCCESS = '/account/profile';
+    const URL_REDIRECT_UPDATE_PROFILE_FAIL = '/account/update';
     const URL_REDIRECT_LOGOUT = '/';
     const URL_REDIRECT_CONTACT_SUCCESS = '/contact';
     const URL_REDIRECT_CONTACT_FAIL = '/contact';
@@ -32,12 +34,17 @@ class Define
     const URL_REDIRECT_COMMENT_SUCCESS = '/post/detail/';
     const URL_REDIRECT_COMMENT_FAIL = '/post/detail/';
 
+    const URL_REDIRECT_UPLOAD_CAO_ANH_PHUONG_SUCCESS = '/home/cao-anh-phuong';
+
     const URL_AVATAR_DEFAULT = 'theme/assets/frontend/pages/img/people/img2-large.jpg';
+    const URL_IMAGE_DEFAULT = '/theme/assets/frontend/pages/img/works/img2.jpg';
 
     const MESSAGE_LOGIN_SUCCESS = 'Login successful !';
     const MESSAGE_LOGIN_FAIL = 'Login unsuccessful !';
     const MESSAGE_REGISTRATION_SUCCESS = 'Registration successful !';
     const MESSAGE_REGISTRATION_FAIL = 'Registration unsuccessful !';
+    const MESSAGE_UPDATE_PROFILE_SUCCESS = 'Update successful !';
+    const MESSAGE_UPDATE_PROFILE_FAIL = 'Update unsuccessful !';
     const MESSAGE_EMAIL_EXISTS = 'Email is exists !';
     const MESSAGE_PHONE_EXISTS = 'Phone is exists !';
     const MESSAGE_LOGOUT = 'Good bye !';
@@ -52,8 +59,14 @@ class Define
     const MESSAGE_COMMENT_SUCCESS = 'Post a comment successful !';
     const MESSAGE_COMMENT_FAIL = 'Post a comment unsuccessful !';
 
+    const MESSAGE_UPLOAD_CAO_ANH_PHUONG_SUCCESS = 'Upload successful !';
+    const MESSAGE_UPLOAD_CAO_ANH_PHUONG_FAIL = 'Upload unsuccessful !';
+
     const EMAIL_USERNAME = 'leehop.blog@gmail.com';
     const EMAIL_SUBJECT = 'LEEHOP - BLOG';
 
     const PATH_UPLOAD_IMAGES = 'upload/images/';
+
+    const ROLE_USER = 0;
+    const ROLE_ADMIN = 1;
 }

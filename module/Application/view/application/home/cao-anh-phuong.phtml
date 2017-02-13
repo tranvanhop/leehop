@@ -1,0 +1,30 @@
+<ul class="breadcrumb">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="javascript:;">Cao Anh Phuong</a></li>
+    <li class="active">Gallery</li>
+    <li class="active"><a href="/home/upload-cao-anh-phuong"><i class="fa fa-plus"></i></a></li>
+</ul>
+<!-- BEGIN SIDEBAR & CONTENT -->
+<div class="row margin-bottom-40">
+    <!-- BEGIN CONTENT -->
+    <div class="col-md-12">
+        <h1>Gallery</h1>
+
+        <div class="content-page">
+            <div class="row margin-bottom-40">
+                <?php foreach ($this->caoAnhPhuongs as $p) : ?>
+                    <div class="col-md-3 col-sm-4 gallery-item">
+                        <a data-rel="fancybox-button" title="<?= $p['name'] ?>"
+                           href="<?= $this->basePath() ?>/<?= $p['image'] ?>" class="fancybox-button">
+                            <img alt="" src="<?= $this->basePath() ?>/<?= $p['image'] ?>"
+                                 class="img-responsive">
+
+                            <div class="zoomix"><i class="fa fa-search"></i></div>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT -->
+</div>

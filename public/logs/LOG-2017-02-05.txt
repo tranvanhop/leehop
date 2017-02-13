@@ -1,0 +1,5 @@
+[::1] [05/02/2017 09:31:40] [Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36] [HomeController] [indexAction] [Method : GET] 
+[::1] [05/02/2017 09:32:01] [Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36] [HomeController] [indexAction] [Method : GET] 
+[::1] [05/02/2017 09:32:02] [Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36] [HomeController] [getPostsLatestAction] [Method : GET] 
+[::1] [05/02/2017 09:32:02] [Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36] [HomeController] [getMyFriendAction] [Method : GET] 
+[::1] [05/02/2017 09:32:02] [Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36] [HomeController] [getSkillsAction] [Method : GET] 

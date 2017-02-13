@@ -72,6 +72,7 @@ return array(
         'template_map' => array(
             'layout/application' => __DIR__ . '/../view/layout/application.phtml',
             'layout/generator' => __DIR__ . '/../view/layout/generator.phtml',
+            'layout/admin' => __DIR__ . '/../view/layout/admin.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
@@ -82,7 +83,8 @@ return array(
 
     'module_layouts' => array(
         'Application' => 'layout/application',
-        'Generator' => 'layout/generator'
+        'Generator' => 'layout/generator',
+        'Admin' => 'layout/admin',
     ),
 
     // Placeholder for console routes

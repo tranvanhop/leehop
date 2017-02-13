@@ -2,7 +2,8 @@
 namespace Application\Controller;
 
 use Application\Constant\Define;
-use Application\Constant\Key;
+use Application\Form\CaoAnhPhuongForm;
+use Application\Form\Filter\CaoAnhPhuongFilter;
 
 class HomeController extends BaseController
 {
@@ -26,6 +27,59 @@ class HomeController extends BaseController
         }
         $this->_view->setVariable('categories', $categories);
 
+        $this->writeLog();
+        return $this->_view;
+    }
+
+    public function caoAnhPhuongAction()
+    {
+        $this->init();
+        $this->_view->setVariable('define', $this->_variableLayout['define']);
+
+        $caoAnhPhuongs = $this->_commonDAO->executeQuery('CAO_ANH_PHUONG_GET_ALL', array());
+        $this->_view->setVariable('caoAnhPhuongs', $caoAnhPhuongs);
+
+        $this->writeLog();
+        return $this->_view;
+    }
+
+    public function uploadCaoAnhPhuongAction()
+    {
+        $this->init();
+
+        $caoAnhPhuongForm = new CaoAnhPhuongForm('caoAnhPhuongForm');
+        $caoAnhPhuongForm->setInputFilter(new CaoAnhPhuongFilter());
+
+        if ($this->_request->isPost()) {
+            $data = $this->_request->getPost();
+            $caoAnhPhuongForm->setData($data);
+
+            if ($caoAnhPhuongForm->isValid()) {
+                $image = Define::URL_IMAGE_DEFAULT;
+                if (!empty($_FILES['image'])) {
+                    $filename = time() . '_' . basename($_FILES['image']['name']);
+                    $image = Define::PATH_UPLOAD_IMAGES . $filename;
+                    move_uploaded_file($_FILES['image']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/' . $image);
+                }
+
+                $arrParams = array(
+                    0,
+                    $data['name'],
+                    $image,
+                    $_SERVER['REMOTE_ADDR'],
+                    $_SERVER['HTTP_USER_AGENT']
+                );
+                $caoAnhPhuong = $this->_commonDAO->executeQuery_returnID('CAO_ANH_PHUONG_INSERT', $arrParams);
+                if ($caoAnhPhuong) {
+                    $this->flashMessenger()->addMessage(array(
+                        'success' => Define::MESSAGE_UPLOAD_CAO_ANH_PHUONG_SUCCESS
+                    ));
+                    $this->writeLog();
+                    return $this->redirect()->toUrl(Define::URL_REDIRECT_UPLOAD_CAO_ANH_PHUONG_SUCCESS);
+                }
+            }
+        }
+        $this->_view->setVariable('caoAnhPhuongForm', $caoAnhPhuongForm);
         $this->writeLog();
         return $this->_view;
     }

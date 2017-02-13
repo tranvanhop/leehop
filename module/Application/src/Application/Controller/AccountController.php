@@ -8,10 +8,12 @@ use Application\Form\Filter\ForgotPasswordFilter;
 use Application\Form\Filter\LoginFilter;
 use Application\Form\Filter\NewPasswordFilter;
 use Application\Form\Filter\RegistrationFilter;
+use Application\Form\Filter\UpdateProfileFilter;
 use Application\Form\ForgotPasswordForm;
 use Application\Form\LoginForm;
 use Application\Form\NewPasswordForm;
 use Application\Form\RegistrationForm;
+use Application\Form\UpdateProfileForm;
 use Application\Utility\Security;
 use Zend\Mail\Message;
 use Zend\Mime\Message as MimeMessage;
@@ -122,13 +124,13 @@ class AccountController extends BaseController
                 $password = $security->create($data['password']);
 
                 $arrParams = array(
+                    Define::ROLE_USER,
                     $data['first_name'],
                     $data['last_name'],
                     $data['email'],
                     $password,
                     $data['phone'],
                     $avatar,
-                    date('Y-m-d H:i:s'),
                     $_SERVER['REMOTE_ADDR'],
                     $_SERVER['HTTP_USER_AGENT']
                 );
@@ -305,6 +307,86 @@ class AccountController extends BaseController
         {
             return $this->redirect()->toUrl(Define::URL_REDIRECT_LOGIN_FAIL);
         }
+
+        $this->writeLog();
+        return $this->_view;
+    }
+
+    public function updateAction()
+    {
+        $this->init();
+
+        $userId = $this->getLogin();
+        if ($userId) {
+            $user = $this->_commonDAO->executeQueryFirst('USER_GET_BY_ID', array($userId));
+            $this->_view->setVariable('user', $user);
+
+            $updateProfileForm = new UpdateProfileForm('updateProfileForm');
+            $updateProfileForm->setInputFilter(new UpdateProfileFilter());
+            $updateProfileForm->setData($user);
+
+            if ($this->_request->isPost()) {
+                $data = $this->_request->getPost();
+                $updateProfileForm->setData($data);
+
+                // check phone is exists !
+                $isExistsPhone = false;
+                if (strlen($data['phone']) > 0 && strcmp($user['phone'], $data['phone']) !== 0)
+                    $isExistsPhone = $this->_commonDAO->executeQueryFirst('USER_GET_BY_PHONE', array($data['phone']));
+
+                if ($isExistsPhone) {
+                    $this->flashMessenger()->addMessage(array(
+                        'danger' => Define::MESSAGE_PHONE_EXISTS
+                    ));
+                    $this->writeLog();
+                    return $this->redirect()->toUrl(Define::URL_REDIRECT_UPDATE_PROFILE_FAIL);
+                }
+
+                // check email is exists !
+                $isExistsEmail = false;
+                if (strlen($data['email']) > 0 && strcmp($user['email'], $data['email']) !== 0)
+                    $isExistsEmail = $this->_commonDAO->executeQueryFirst('USER_GET_BY_EMAIL', array($data['email']));
+
+                if ($isExistsEmail) {
+                    $this->flashMessenger()->addMessage(array(
+                        'danger' => Define::MESSAGE_EMAIL_EXISTS
+                    ));
+                    $this->writeLog();
+                    return $this->redirect()->toUrl(Define::URL_REDIRECT_UPDATE_PROFILE_FAIL);
+                }
+
+                // valid form : first_name, last_name, email, password is not null. password == confirm_password ?
+                if ($updateProfileForm->isValid()) {
+                    $avatar = $user['avatar'];
+                    if (!empty($_FILES['avatar']['name'])) {
+                        $filename = time() . '_' . $_FILES['avatar']['name'];
+                        $avatar = Define::PATH_UPLOAD_IMAGES . $filename;
+                        move_uploaded_file($_FILES['avatar']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/' . $avatar);
+                    }
+
+                    $arrParams = array(
+                        $user['id'],
+                        Define::ROLE_USER,
+                        $data['first_name'],
+                        $data['last_name'],
+                        $data['email'],
+                        $data['phone'],
+                        $avatar
+                    );
+                    $user = $this->_commonDAO->executeNonQuery('USER_UPDATE', $arrParams);
+                    if ($user) {
+                        $this->flashMessenger()->addMessage(array(
+                            'success' => Define::MESSAGE_UPDATE_PROFILE_SUCCESS
+                        ));
+                        $this->writeLog();
+
+                        return $this->redirect()->toUrl(Define::URL_REDIRECT_UPDATE_PROFILE_SUCCESS);
+                    }
+                }
+            }
+            $this->_view->setVariable('updateProfileForm', $updateProfileForm);
+        } else
+            return $this->redirect()->toUrl(Define::URL_REDIRECT_LOGIN_FAIL);
 
         $this->writeLog();
         return $this->_view;

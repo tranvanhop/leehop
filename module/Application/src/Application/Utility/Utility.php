@@ -119,6 +119,11 @@ class Utility
                     'href' => '/account/profile',
                     'caption' => 'My account',
                 ),
+                'update' => array(
+                    'classActive' => '',
+                    'href' => '/account/update',
+                    'caption' => 'Update profile',
+                ),
             );
         }
 
@@ -250,5 +255,87 @@ class Utility
         $query = str_replace('update', '', $query);
 
         return $query;
+    }
+
+
+    // Admin
+    public function getMenusAdmin($session, $controllerName = '', $actionName = '')
+    {
+        $menus = array(
+            'Home' => array(
+                'classActive' => '',
+                'class' => 'dropdown',
+                'href' => '/',
+                'caption' => 'Home',
+            ),
+            'Post' => array(
+                'classActive' => '',
+                'class' => 'dropdown',
+                'href' => '/post',
+                'caption' => 'Post'
+            ),
+//            'Tools' => array(
+//                'classActive' => '',
+//                'class' => 'dropdown',
+//                'href' => '/tools',
+//                'caption' => 'Tools'
+//            ),
+            'Account' => array(
+                'classActive' => '',
+                'class' => 'dropdown',
+                'href' => '/account/log-in',
+                'caption' => 'Account',
+            ),
+            'Contact' => array(
+                'classActive' => '',
+                'class' => 'dropdown',
+                'href' => '/contact',
+                'caption' => 'Contact'
+            ),
+        );
+
+        if ($session->offsetExists(Key::ID)) {
+            $menus = array(
+                'Home' => array(
+                    'classActive' => '',
+                    'class' => 'dropdown',
+                    'href' => '/',
+                    'caption' => 'Home',
+                ),
+                'Post' => array(
+                    'classActive' => '',
+                    'class' => 'dropdown',
+                    'href' => '/post',
+                    'caption' => 'Post'
+                ),
+//                'Tools' => array(
+//                    'classActive' => '',
+//                    'class' => 'dropdown',
+//                    'href' => '/tools',
+//                    'caption' => 'Tools'
+//                ),
+                'Account' => array(
+                    'classActive' => '',
+                    'class' => 'dropdown',
+                    'href' => '/account/profile',
+                    'caption' => 'Account',
+                ),
+                'Contact' => array(
+                    'classActive' => '',
+                    'class' => 'dropdown',
+                    'href' => '/contact',
+                    'caption' => 'Contact'
+                ),
+            );
+        }
+
+        if (isset($menus[$controllerName])) {
+            $menus[$controllerName]['classActive'] = 'active';
+            if (isset($menus[$controllerName]['sub_menu']) && isset($menus[$controllerName]['sub_menu'][$actionName])) {
+                $menus[$controllerName]['sub_menu'][$actionName]['classActive'] = 'active';
+            }
+        }
+
+        return $menus;
     }
 }
